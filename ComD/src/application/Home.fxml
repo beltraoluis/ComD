@@ -22,12 +22,12 @@
                <children>
                   <HBox prefHeight="25.0" prefWidth="300.0">
                      <children>
-                        <Label prefWidth="110.0" text="Origem:">
+                        <Label fx:id="origem" prefWidth="110.0" text="Origem:">
                            <HBox.margin>
                               <Insets left="5.0" top="5.0" />
                            </HBox.margin>
                         </Label>
-                        <Label text="Destino:">
+                        <Label fx:id="destino" text="Destino:">
                            <HBox.margin>
                               <Insets left="5.0" top="5.0" />
                            </HBox.margin>
@@ -36,20 +36,23 @@
                   </HBox>
                   <HBox prefHeight="24.0" prefWidth="300.0" VBox.vgrow="NEVER">
                      <children>
-                        <TextArea editable="false" maxWidth="150.0" minHeight="25.0" minWidth="75.0" prefHeight="25.0" prefWidth="75.0" text="192.168.1.100" HBox.hgrow="ALWAYS" />
-                        <TextField prefWidth="145.0" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="ipOrigem" editable="false" maxWidth="150.0" minHeight="25.0" minWidth="75.0" prefHeight="25.0" prefWidth="75.0" text="192.168.1.100" HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="ipDestino" prefWidth="145.0" promptText="digite o IP de destino" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
                         </TextField>
                      </children>
                   </HBox>
-                  <ScrollPane prefHeight="300.0" prefWidth="300.0">
+                  <ScrollPane fx:id="sp" prefHeight="300.0" prefWidth="300.0">
                     <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="300.0" />
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="300.0">
+                           <children>
+                              <VBox fx:id="lista" />
+                           </children></AnchorPane>
                     </content>
                   </ScrollPane>
-                  <TextArea maxWidth="280.0" minWidth="50.0" prefHeight="120.0" prefWidth="280.0" promptText="Digite a sua Mensagem" />
+                  <TextArea fx:id="mensagem" maxWidth="280.0" minWidth="50.0" prefHeight="120.0" prefWidth="280.0" promptText="Digite a sua Mensagem" />
                   <GridPane prefHeight="30.0" prefWidth="300.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -62,7 +65,7 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button mnemonicParsing="false" text="Enviar" GridPane.columnIndex="4" />
+                        <Button fx:id="enviar" mnemonicParsing="false" text="Enviar" GridPane.columnIndex="4" />
                      </children>
                   </GridPane>
                </children>
