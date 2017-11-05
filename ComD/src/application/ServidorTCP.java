@@ -11,31 +11,51 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author beltraoluis
  */
-public class ServidorTCP {
-    public static void main(String[] args) throws ClassNotFoundException {
+public class ServidorTCP extends Thread {
+    
+    protected HomeController control;
+    protected int porta;
+    ptotected boolean executar;
+    
+    public ServidorTCP(HomeController control, int porta){
+        this.control = control;
+        this.porta = porta;
+        executar = true;
+    }
+    
+    public void run(){
         try {
             // Instancia o ServerSocket ouvindo a porta 5555
-            ServerSocket servidor = new ServerSocket(5555);
-            System.out.println("Servidor ouvindo a porta 5555");
-            while(true) {
+            ServerSocket servidor = new ServerSocket(porta);
+            System.out.println("Servidor ouvindo a porta " + porta);
+            while(executar) {
                 // o método accept() bloqueia a execução até que
                 // o servidor receba um pedido de conexão
                 Socket cliente = servidor.accept();
-                System.out.println("Cliente conectado: " + cliente.getInetAddress().getHostAddress());
+                String ipCliente = cliente.getInetAddress().getHostAddress();
+                System.out.println("Cliente conectado: " + ipCliente);
                 ObjectInputStream entrada = new ObjectInputStream(cliente.getInputStream());
                 String mensagem = (String)entrada.readObject();
                 entrada.close();
-                System.out.println(mensagem);
+                try {
+                    this.sleep(200);
+                } catch (InterruptedException ex) {
+                }
+                control.atualizar(ipCliente, mensagem);
                 cliente.close();
             }  
         }   
         catch(IOException e) {
            System.out.println("Erro: " + e.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ServidorTCP.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
