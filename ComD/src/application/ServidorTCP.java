@@ -22,7 +22,7 @@ public class ServidorTCP extends Thread {
     
     protected HomeController control;
     protected int porta;
-    ptotected boolean executar;
+    protected boolean executar;
     
     public ServidorTCP(HomeController control, int porta){
         this.control = control;
