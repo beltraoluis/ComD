@@ -23,18 +23,21 @@ public class ServidorTCP extends Thread {
     protected HomeController control;
     protected int porta;
     protected boolean executar;
+    protected ServerSocket servidor;
     
     public ServidorTCP(HomeController control, int porta){
         this.control = control;
         this.porta = porta;
         executar = true;
+        this.start();
     }
     
     public void run(){
         try {
             // Instancia o ServerSocket ouvindo a porta 5555
-            ServerSocket servidor = new ServerSocket(porta);
+            servidor = new ServerSocket(porta);
             System.out.println("Servidor ouvindo a porta " + porta);
+            control.atualizar("Servidor", "Servidor ouvindo a porta " + porta);
             while(executar) {
                 // o método accept() bloqueia a execução até que
                 // o servidor receba um pedido de conexão
@@ -57,5 +60,14 @@ public class ServidorTCP extends Thread {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ServidorTCP.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void parar(){
+        try {
+            servidor.close();
+        } catch (IOException ex) {
+        }
+        executar = false;
+        this.interrupt();
     }
 }

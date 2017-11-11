@@ -42,29 +42,29 @@ public class HomeController {
         StringBuffer ipt = new StringBuffer(ipOrigem.getText().toString());
         if(ipt.length() == 0){
             try {
-                ipt.append(InetAddress.getLocalHost().getHostAddress());
+                ipt.append("127.0.0.1");
             } catch (Exception e) {
             }
             ipt.append(":");
             ipt.append(porta);
             ipOrigem.setText(ipt.toString());
         }else{
-            String ip = ipDestino.getText();
+            String ip = ipOrigem.getText();
             int pos = ip.indexOf(":");
+            System.out.println(ip.substring(pos+1));
             //ler a porta apos o :
             porta = Integer.parseInt(ip.substring(pos+1));
         }
         if(!conectado){
             servidor = new ServidorTCP(this, porta);
-            servidor.start();
-            //conectar.setText("Desconectar");
-        }else{
-            servidor.interrupt();
+            origem.setText("Origem conectada:");
+            conectado = !conectado;
+        }/*else{
+            servidor.parar();
+            servidor = null;
             servidor = new ServidorTCP(this, porta);
-            servidor.start();
-           // conectar.setText("Conectar");
-        }
-        conectado = !conectado;
+            origem.setText("Origem:");
+        }*/
     }
         
     public void enviarEvento(ActionEvent evento){
@@ -73,11 +73,11 @@ public class HomeController {
         //ler a porta apos o :
         int porta = Integer.parseInt(ip.substring(pos+1));
         ip = ip.substring(0, pos);
-        System.out.println("ip: "+ip);
-        System.out.println("porta: "+porta);
+        //System.out.println("ip: "+ip);
+        //System.out.println("porta: "+porta);
         //cliente TCP
         try {
-            Socket cliente = new Socket("127.0.0.1",5555);
+            Socket cliente = new Socket(ip,porta);
             ObjectOutputStream saida = new ObjectOutputStream(cliente.getOutputStream());
             saida.flush();
             saida.writeObject(mensagem.getText());
