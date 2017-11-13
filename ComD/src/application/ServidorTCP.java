@@ -5,6 +5,7 @@
  */
 package application;
 
+import beltraoluis.conexao.AMI;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -45,7 +46,8 @@ public class ServidorTCP extends Thread {
                 String ipCliente = cliente.getInetAddress().getHostAddress();
                 System.out.println("Cliente conectado: " + ipCliente);
                 ObjectInputStream entrada = new ObjectInputStream(cliente.getInputStream());
-                String mensagem = (String)entrada.readObject();
+                AMI linha = (AMI) entrada.readObject();
+                String mensagem = linha.decodificar();
                 entrada.close();
                 try {
                     this.sleep(200);

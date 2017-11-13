@@ -85,6 +85,7 @@ public class Encoding {
             return s;
         }
         
+        /*
         public void decodificar(String){
             StringBuilder string = new StringBuilder();
             String s;
@@ -150,10 +151,10 @@ public class Encoding {
                     case 'w': string.append("01110111"); break;
                     case 'x': string.append("01111000"); break;
                     case 'y': string.append("01111001"); break;
-                    case 'z': string.append("01111010"); break;  
+                    case 'z': string.append("01111010"); break; 
                 }
             
-        }
+        }*/
 
 	public Integer[] encodificar (String seq) {
 

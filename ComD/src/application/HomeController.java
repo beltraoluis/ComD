@@ -1,5 +1,6 @@
 package application;
 
+import beltraoluis.conexao.AMI;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
@@ -79,8 +80,10 @@ public class HomeController {
         try {
             Socket cliente = new Socket(ip,porta);
             ObjectOutputStream saida = new ObjectOutputStream(cliente.getOutputStream());
+            AMI linha = new AMI();
+            linha.codificar(mensagem.getText());
             saida.flush();
-            saida.writeObject(mensagem.getText());
+            saida.writeObject(linha);
             saida.close();
         }catch(IOException e) {
             System.out.println("Erro: " + e.getMessage());
