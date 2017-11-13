@@ -7,13 +7,14 @@ package beltraoluis.conexao;
 
 import beltraoluis.Bit;
 import beltraoluis.DadoBinario;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author beltraoluis
  */
-public class AMI {
+public class AMI implements Serializable{
     
     protected ArrayList<Integer> sinal;
     protected boolean flag;

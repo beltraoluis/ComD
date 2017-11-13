@@ -1,6 +1,7 @@
 package application;
 	
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -19,6 +20,10 @@ public class Main extends Application {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+            primaryStage.setOnCloseRequest(evt -> {
+                Platform.exit();
+                System.exit(0);
+            });
 	}
 	
 	public static void main(String[] args) {
