@@ -27,6 +27,8 @@ public class AMI implements Serializable{
     public void codificar(String s){
         DadoBinario dado = new DadoBinario();
         dado.set(s);
+        System.out.println("binário:");
+        dado.println();
         sinal.clear();
         for(int i = 0; i < dado.size(); i++){
             int k = dado.get(i);
@@ -45,9 +47,13 @@ public class AMI implements Serializable{
                 default: break;
             }
         }
+        System.out.println("Sinal codificado:");
+        this.println();
     }
     
     public String decodificar(){
+        System.out.println("Sinal");
+        this.println();
         String s = "";
         DadoBinario dado = new DadoBinario();
         for(int i = 0; i < sinal.size(); i++){
@@ -66,6 +72,8 @@ public class AMI implements Serializable{
                 }
             }catch(NullPointerException e){}
         }
+        System.out.println("Binario decodificado:");
+        dado.println();
         s = dado.toString();
         return s;
     }
@@ -82,5 +90,17 @@ public class AMI implements Serializable{
             System.out.print(sinal.get(i).intValue() + ",");
         }
         System.out.println(sinal.get(sinal.size()-1).intValue());
+    }
+    
+    
+    
+    public String toString(){
+        StringBuilder sb = new StringBuilder("");
+        for(int i = 0; i < sinal.size()-1; i++){
+            sb.append(sinal.get(i).intValue());
+            sb.append(",");
+        }
+        sb.append(sinal.get(sinal.size()-1).intValue());
+        return sb.toString();
     }
 }
